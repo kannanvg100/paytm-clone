@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 import { useSession } from '@/contexts/session'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
 
-export default function page() {
+export default function Page() {
     const [isOpenAddMoney, setIsOpenAddMoney] = useState(false)
     const [transactions, setTransactions] = useState([])
     const [total, setTotal] = useState(10)
