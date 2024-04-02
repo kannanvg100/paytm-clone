@@ -1,33 +1,23 @@
-import { useEffect, useRef } from 'react'
+'use client'
+import { useRef, useCallback } from 'react';
 
-export default function useInfiniteScroll({ hasNextPage, fetchNextPage }) {
-	const loaderRef = useRef()
-	const scrollerRef = useRef()
+const useInfiniteScroll = (setPage, loading, hasMore) => {
+    const observer = useRef();
 
-	useEffect(() => {
-		if (!hasNextPage) return
+    const loaderRef = useCallback(
+        (node) => {
+            if (loading) return;
+            if (observer.current) observer.current.disconnect();
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && hasMore) {
+                    setPage((page) => page + 1)
+                }
+            });
+            if (node) observer.current.observe(node);
+        },
+        [setPage, loading, hasMore]
+    );
+    return loaderRef;
+};
 
-		let observer
-
-		const fetchAndObserve = async (entries) => {
-			if (entries[0].isIntersecting) {
-				await fetchNextPage()
-				if (hasNextPage && entries[0].isIntersecting) {
-					observer.observe(loaderRef.current)
-				}
-			}
-		}
-
-		observer = new IntersectionObserver(fetchAndObserve)
-
-		if (loaderRef.current) {
-			observer.observe(loaderRef.current)
-		}
-
-		return () => {
-			observer.disconnect()
-		}
-	}, [hasNextPage, fetchNextPage])
-
-	return [loaderRef, scrollerRef]
-}
+export default useInfiniteScroll;

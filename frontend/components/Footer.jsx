@@ -4,9 +4,9 @@ import React from 'react'
 export default function Footer() {
 	return (
 		<div className="bg-[#f5f7fa] px-[10px]">
-			<div className="flex justify-between border-b border-[#ccc] py-[90px] flex-wrap">
-				<div className="flex gap-2">
-					<p className="font-semibold text-xl w-[230px]">Download Paytm App to Pay from anywhere</p>
+			<div className="flex justify-between border-b border-[#ccc] py-[90px] flex-wrap gap-6">
+				<div className="flex gap-2 flex-wrap">
+					<p className="font-semibold text-xl md:w-[230px]">Download Paytm App to Pay from anywhere</p>
 					<Image src="/downloadApple.svg" alt="downloadApple" width={170} height={56} />
 					<Image src="/downloadGoogle.svg" alt="downloadGoogle" width={189} height={56} />
 				</div>
